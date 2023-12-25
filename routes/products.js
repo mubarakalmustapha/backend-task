@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { Product, validate } = require("../models/product");
 const { Category } = require("../models/category");
-const validateObjectId = require("../middleware/validateObjectId");
 const auth = require("../middleware/auth");
 const vendor = require("../middleware/vendor");
 const cloudinary = require("../utils/cloudinary");
@@ -21,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 // Route to get products by category
-router.get("/:categoryId", validateObjectId, async (req, res) => {
+router.get("/:categoryId", async (req, res) => {
   const categoryId = req.params.categoryId;
   try {
     const products = await Product.find({ categoryId });
